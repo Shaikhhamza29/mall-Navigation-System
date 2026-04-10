@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<img id="map" src="oberoi/GF.png" style="width:800px; border:1px solid black;">
+
+<p id="coords">Click on map</p>
+
+<script>
+const img = document.getElementById("map");
+
+img.addEventListener("click", function(e) {
+    const rect = img.getBoundingClientRect();
+
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
+
+    document.getElementById("coords").innerText = `X: ${x}, Y: ${y}`;
+    console.log(`X: ${x}, Y: ${y}`);
+});
+</script>
+
+</body>
+</html>
