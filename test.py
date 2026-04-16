@@ -1,6 +1,6 @@
 import cv2
 
-img = cv2.imread("oberoi/GF.png")
+img = cv2.imread("oberoi/F3.png")
 
 # -----------------------------
 # STORE AREAS (Adjusted for YOUR image 1155x640)
@@ -65,7 +65,7 @@ def click_event(event, x, y, flags, param):
             if x1 <= x <= x2 and y1 <= y <= y2:
                 selected_store = name
                 print(f"Clicked: {name}")
-                # print("cordinates", x, y)
+                print("cordinates", x, y)
                 found = True
                 break
 

@@ -1,24 +1,212 @@
-<!DOCTYPE html>
-<html>
-<body>
+stores_GF = {
+    "Zara": (1493, 425),
+    "Levis": (1043, 522),
+    "Sephora": (916, 566),
+    "Lifestyle": (814, 690),
+    "Uniqlo": (580, 650),
+    "Jack & Jones": (416, 616),
+    "Vero Moda": (520, 576),
+    "M&S": (303, 787),
 
-<img id="map" src="oberoi/GF.png" style="width:800px; border:1px solid black;">
+    "Entrance": (724, 198),
 
-<p id="coords">Click on map</p>
+    "Poetry Love & Cheesecake": (257, 442),
+    "SELECTED HOMME": (191, 272),
+    "Only": (267, 238),
+    "fossil": (347, 271),
 
-<script>
-const img = document.getElementById("map");
+    "Nykaa": (494, 230),
+    "Ethos Watch": (615, 248),
+    "Sunglasess Hut": (441, 293),
 
-img.addEventListener("click", function(e) {
-    const rect = img.getBoundingClientRect();
+    "CK": (849, 199),
+    "Swarovski": (941, 200),
+    "Forever New": (1083, 171),
+    "The Body Shop": (1134, 91),
+    "Nail Spa": (1125, 413),
 
-    const x = Math.round(e.clientX - rect.left);
-    const y = Math.round(e.clientY - rect.top);
+     "Esc1": (317, 440),
+    "Esc2": (1141, 277),
 
-    document.getElementById("coords").innerText = `X: ${x}, Y: ${y}`;
-    console.log(`X: ${x}, Y: ${y}`);
-});
-</script>
+    # PATH
+    "P1": (198,342),
+    "P2": (411,333),
+    "P3": (762,297),
+    "P4": (1016,229),
+    "P5": (1192,168),
+    "P6": (1226,330),
+    "P7": (1023,393),
+    "P8": (764,461),
+    "P9": (487,497),
+    "P10": (212,515),
+}
+# STORES (GF)
+# -----------------------------
 
-</body>
-</html>
+stores_F1 = {
+    "Metro Shoes": (144, 268),
+    "Regal Shoes": (303, 250),
+    "Asics": (508, 234),
+    "The Souled Store": (572, 273),
+    "Adidas": (865, 207),
+    "Komponreo": (985, 167),
+
+    "Van Hausen": (1160, 113),
+
+    "The Bombay Shirt Company": (1518, 110),
+    "ColorPlus": (1697, 258),
+    "Jockey": (1691, 385),
+    "GAP": (1545, 569),
+
+    "BagLine": (1461, 481),
+    "Fizzy goblet": (1458, 420),
+    "Mokobara": (1437, 319),
+
+    "Puma": (1352, 412),
+    "AllenSolly": (1139, 496),
+    "US Polo Assn": (979, 522),
+    "Louis Philippe": (809, 540),
+
+    "LifeStyle ": (720, 747),
+    "Nautica":(586 ,551),
+    "Hide Design":(489 ,576),
+    "Tanishq":(397 ,715),
+    "Croma":(209 ,717),
+    "theobroma":(187 ,442),
+
+    "Esc1": (317, 440),
+    "Esc2": (1141, 277),
+
+    # PATH
+    "P1": (198,342),
+    "P2": (411,333),
+    "P3": (762,297),
+    "P4": (1016,229),
+    "P5": (1192,168),
+    "P6": ( 1338 ,213),
+    "P7":( 1608 ,188),
+    "P8":( 1643 ,437),
+    "P9":(1518 ,445),
+    "P10":( 1483 ,279),
+    "P11":( 1360 ,292),
+    "P12": (1226,330),
+    "P13": (1023,393),
+    "P14": (764,461),
+    "P15": (487,497),
+    "P16": (212,515),
+}
+
+stores_F2={
+    "Fab":( 228 ,221),
+    "samsonite":( 311 ,274),
+    "BIBA":(489 ,257),
+    "Cotton World":(600 ,201),
+    "StarBucks":( 758 ,248),
+    "Global Desi":(867 ,221),
+    "House of Felt":( 968 ,125),
+    "AND":( 1097 ,135),
+    "Kitchen Garden":(1363 ,158),
+    "Peora":( 1495 ,149),
+    "Tasva":( 1563 ,128),
+    "Jaypore":(1704 ,168),
+    "Meena Bazaar":( 1703 ,282),
+    "Raymond":(1715 ,360),
+    "Good Flippin Burgers":(1600 ,543),
+    "Copper Chimney":(1529 ,618),
+    "Burma Burma":( 1447 ,508),
+    "Coco caffe":(1345 ,433),
+    "Envi Salon":(1231 ,553),
+    "Enamor":( 1066 ,461),
+    "Mother Care":(1011 ,536),
+    "Chique":( 790 ,498),
+    "Lifestyle":( 707 ,718),
+    "Nalli":(400 ,756),
+    "nature Basket":(264 ,723),
+    "Chaayos":( 259 ,419),
+# PATH (COPY FROM F1 OR ADJUST)
+    "P1": (198,342),
+    "P2": (411,333),
+    "P3": (762,297),
+    "P4": (1016,229),
+    "P5": (1192,168),
+    "P6": (1338,213),
+    "P7": (1608,188),
+    "P8": (1643,437),
+    "P9": (1518,445),
+    "P10": (1483,279),
+    "P11": (1360,292),
+    "P12": (1226,330),
+    "P13": (1023,393),
+    "P14": (764,461),
+    "P15": (487,497),
+    "P16": (212,515),
+
+    "Esc1": (317, 440),
+    "Esc2": (1141, 277),
+
+}  # keep same
+
+# -----------------------------
+# GRAPHS (same GF + F1)
+# -----------------------------
+graph_GF = {
+    "Entrance": ["P3"],
+    "P1": ["P2", "Esc1"],
+    "P2": ["P1", "P3", "P9","Esc1"],
+    "P3": ["P2", "P4", "Entrance"],
+    "P4": ["P3", "P5","Esc2"],
+    "P5": ["P4", "P6", "Esc2"],
+    "P6": ["P5", "P7","Esc2"],
+    "P7": ["P6", "P8"],
+    "P8": ["P7", "P9"],
+    "P9": ["P8", "P10", "P2","Esc1"],
+    "P10": ["P9","Esc1"],
+    "Esc1": ["P1","P2","P9"],
+    "Esc2": ["P5","P4","P6"],
+}
+
+graph_F1 = {
+    "P1": ["P2", "P16", "P15"],
+    "P2": ["P1", "P3", "P15","Esc1"],
+    "P3": ["P2", "P4","Esc1"],
+    "P4": ["P3", "P5"],
+    "P5": ["P4", "P6","Esc2"],
+    "P6": ["P5", "P7","Esc2"],
+    "P7": ["P6", "P8"],
+    "P8": ["P7", "P9"],
+    "P9": ["P8", "P10"],
+    "P10": ["P9", "P11"],
+    "P11": ["P10", "P12"],
+    "P12": ["P11", "P13"],
+    "P13": ["P12", "P14","Esc1"],
+    "P14": ["P13", "P15","Esc1"],
+    "P15": ["P14", "P16", "P2", "P1","Esc1"],
+    "P16": ["P15", "P1"],
+    "Esc1": ["P1","P2","P3","P13","P14","P15"],
+    "Esc2": ["P5","P6"],
+}
+
+
+# -----------------------------
+# 🔥 ADD F2 GRAPH (IMPORTANT)
+# -----------------------------
+graph_F2 = {
+    "P1": ["P2", "P16", "P15"],
+    "P2": ["P1", "P3", "P15", "Esc1"],
+    "P3": ["P2", "P4", "Esc1"],
+    "P4": ["P3", "P5"],
+    "P5": ["P4", "P6", "Esc2"],
+    "P6": ["P5", "P7", "Esc2"],
+    "P7": ["P6", "P8"],
+    "P8": ["P7", "P9"],
+    "P9": ["P8", "P10"],
+    "P10": ["P9", "P11"],
+    "P11": ["P10", "P12"],
+    "P12": ["P11", "P13"],
+    "P13": ["P12", "P14", "Esc1"],
+    "P14": ["P13", "P15", "Esc1"],
+    "P15": ["P14", "P16", "P2", "P1", "Esc1"],
+    "P16": ["P15", "P1"],
+    "Esc1": ["P1", "P2", "P3", "P13", "P14", "P15"],
+    "Esc2": ["P5", "P6"],
+}

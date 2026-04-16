@@ -4,24 +4,19 @@ import heapq
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import ttk
-
 # -----------------------------
 # GLOBAL STATE
 # -----------------------------
-last_paths = {"GF": None, "F1": None, "F2": None}
-last_source = None
+last_paths = {"GF": None, "F1": None, "F2": None,"F3":None}
+last_source = None,
 last_dest = None
 
-# -----------------------------
-# LOAD IMAGES
-# -----------------------------
 img_GF = cv2.imread("oberoi/GF.png")
 img_F1 = cv2.imread("oberoi/F1.png")
 img_F2 = cv2.imread("oberoi/F2.png")
 img_F3 = cv2.imread("oberoi/F3.png")
 
 current_floor = "GF"
-
 # -----------------------------
 # STORES (same as yours)
 # -----------------------------
@@ -34,25 +29,21 @@ stores_GF = {
     "Jack & Jones": (416, 616),
     "Vero Moda": (520, 576),
     "M&S": (303, 787),
-
     "Entrance": (724, 198),
-
-    "Poetry Love & Cheesecake": (257, 442),
+    "poetry Love & Cheesecake": (257, 442),
     "SELECTED HOMME": (191, 272),
     "Only": (267, 238),
     "fossil": (347, 271),
-
     "Nykaa": (494, 230),
     "Ethos Watch": (615, 248),
     "Sunglasess Hut": (441, 293),
-
     "CK": (849, 199),
     "Swarovski": (941, 200),
     "Forever New": (1083, 171),
     "The Body Shop": (1134, 91),
     "Nail Spa": (1125, 413),
 
-     "Esc1": (317, 440),
+    "Esc1": (317, 440),
     "Esc2": (1141, 277),
 
     # PATH
@@ -67,8 +58,6 @@ stores_GF = {
     "P9": (487,497),
     "P10": (212,515),
 }
-# STORES (GF)
-# -----------------------------
 
 stores_F1 = {
     "Metro Shoes": (144, 268),
@@ -77,23 +66,18 @@ stores_F1 = {
     "The Souled Store": (572, 273),
     "Adidas": (865, 207),
     "Komponreo": (985, 167),
-
     "Van Hausen": (1160, 113),
-
     "The Bombay Shirt Company": (1518, 110),
     "ColorPlus": (1697, 258),
     "Jockey": (1691, 385),
     "GAP": (1545, 569),
-
     "BagLine": (1461, 481),
     "Fizzy goblet": (1458, 420),
     "Mokobara": (1437, 319),
-
-    "Puma": (1352, 412),
+    "puma": (1352, 412),
     "AllenSolly": (1139, 496),
     "US Polo Assn": (979, 522),
     "Louis Philippe": (809, 540),
-
     "LifeStyle ": (720, 747),
     "Nautica":(586 ,551),
     "Hide Design":(489 ,576),
@@ -170,8 +154,7 @@ stores_F2={
 
     "Esc1": (317, 440),
     "Esc2": (1141, 277),
-
-}  # keep same
+}  #keep same
 
 stores_F3={
     "play N learn ":(242 ,394),
@@ -179,8 +162,8 @@ stores_F3={
     "Third Wave Coffee ":( 1342 ,299),
     "pvr Inox":( 1537 ,471),
     "Soical":( 1220 ,513),
-    "Farzi Coffee":( 1100 ,614),
-    "Pizza Express":( 977, 675),
+    "farzi Coffee":( 1100 ,614),
+    "pizza Express":( 977, 675),
     "Asia Kitchen":( 860 ,603),
     "Maharaja bhoj":( 773 ,728),
     "Burger King":( 651 ,650),
@@ -195,7 +178,6 @@ stores_F3={
     "Sandwizza":(238 ,752),
     "Nom Nom Express":( 232 ,683),
     "WOW momos":( 228 ,606),
-
 
     "P1":( 355 ,359),
     "P2":( 541 ,335),
@@ -259,10 +241,6 @@ graph_F1 = {
     "Esc2": ["P5","P6"],
 }
 
-
-# -----------------------------
-# 🔥 ADD F2 GRAPH (IMPORTANT)
-# -----------------------------
 graph_F2 = {
     "P1": ["P2", "P16", "P15"],
     "P2": ["P1", "P3", "P15", "Esc1"],
@@ -290,25 +268,24 @@ graph_F3 = {
     "P3": ["P2", "P4", "P6"],
     "P4": ["P3", "P5"],
     "P5": ["P4", "P6", "Esc2"],
-    "P6": ["P5", "P7", "P3", "Esc2"],   # 🔥 FIXED (added P3)
-    "P7": ["P6", "P8"],
-    "P8": ["P7", "P9"],
-    "P9": ["P8", "P10"],
+    "P6": ["P5", "P7", "P3", "Esc2"],
+    "P7": ["P6", "P8","Esc2"],
+    "P8": ["P7", "P9","Esc1"],
+    "P9": ["P8", "P10","Esc1"],
     "P10": ["P9", "P11"],
     "P11": ["P10", "P12"],
     "P12": ["P11", "P13"],
     "P13": ["P12", "P14"],
     "P14": ["P13", "P15"],
-    "P15": ["P14", "P16", "P1", "P2"],  # 🔥 stronger loop
-    "P16": ["P15", "P1"],
+    "P15": ["P14", "P16", "P1", "P2"],
+    "P16": ["P15", "P1","Esc1"],
 
-    # ESCALATORS (bidirectional)
-    "Esc1": ["P1", "P2"],
-    "Esc2": ["P5", "P6"],
+    "Esc1": ["P1", "P2","P8","P9","P16"],
+    "Esc2": ["P5", "P6","P7"],
 }
-# -----------------------------
+
 # FLOOR SYSTEM
-# -----------------------------
+
 floors = {
     "GF": {"img": img_GF, "stores": stores_GF, "graph": graph_GF},
     "F1": {"img": img_F1, "stores": stores_F1, "graph": graph_F1},
@@ -318,9 +295,8 @@ floors = {
 
 floor_keys = list(floors.keys())
 
-# -----------------------------
 # ESCALATOR LINKS (MULTI FLOOR)
-# -----------------------------
+
 vertical_links = {
     ("GF", "Esc1"): ("F1", "Esc1"),
     ("F1", "Esc1"): ("F2", "Esc1"),
@@ -333,30 +309,39 @@ vertical_links = {
 
 }
 
-# -----------------------------
-# HELPERS
-# -----------------------------
 def distance(a, b):
     return math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
 
-def shortest_path(graph, start, end, store):
-    queue = [(0, start, [])]
-    visited = set()
+def astar(graph, start, end, store):
+    open_set = []
+    heapq.heappush(open_set, (0, start))
 
-    while queue:
-        cost, node, path = heapq.heappop(queue)
-        if node in visited:
-            continue
+    came_from = {}
+    g_score = {node: float("inf") for node in store}
+    g_score[start] = 0
 
-        path = path + [node]
-        visited.add(node)
+    f_score = {node: float("inf") for node in store}
+    f_score[start] = distance(store[start], store[end])
 
-        if node == end:
-            return path
+    while open_set:
+        _, current = heapq.heappop(open_set)
 
-        for n in graph.get(node, []):
-            d = distance(store[node], store[n])
-            heapq.heappush(queue, (cost+d, n, path))
+        if current == end:
+            path = []
+            while current in came_from:
+                path.append(current)
+                current = came_from[current]
+            path.append(start)
+            return path[::-1]
+
+        for neighbor in graph.get(current, []):
+            tentative_g = g_score[current] + distance(store[current], store[neighbor])
+
+            if tentative_g < g_score[neighbor]:
+                came_from[neighbor] = current
+                g_score[neighbor] = tentative_g
+                f_score[neighbor] = tentative_g + distance(store[neighbor], store[end])
+                heapq.heappush(open_set, (f_score[neighbor], neighbor))
 
     return []
 
@@ -369,9 +354,15 @@ def get_floor(name):
         if name in data["stores"]:
             return f
 
-# -----------------------------
-# TKINTER UI
-# -----------------------------
+def filter_store(s):
+    return [k for k in s if not k.startswith("P") and not k.startswith("Esc")]
+
+# STORE LIST (FIXED ORDER)
+store_list = filter_store(stores_GF) + filter_store(stores_F1) + filter_store(stores_F2) + filter_store(stores_F3)
+full_store_list = store_list.copy()
+
+# TKINTER
+
 root = tk.Tk()
 root.attributes("-fullscreen", True)
 root.bind("<Escape>", lambda e: root.destroy())
@@ -380,9 +371,54 @@ screen_w = root.winfo_screenwidth()
 screen_h = root.winfo_screenheight()
 
 def convert(img):
-    resized = cv2.resize(img, (screen_w, screen_h-120))
+    global scale_x, scale_y
+
+    h, w = img.shape[:2]
+    scale_x = screen_w / w
+    scale_y = (screen_h - 120) / h
+
+    resized = cv2.resize(img, (screen_w, screen_h - 120))
     rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
     return ImageTk.PhotoImage(Image.fromarray(rgb))
+
+def filter_combobox(event, var, combo):
+    typed = var.get().lower()
+
+    if typed == "":
+        combo['values'] = full_store_list
+    else:
+        combo['values'] = [i for i in full_store_list if typed in i.lower()]
+
+    combo.event_generate('<Down>')
+
+def on_click(event):
+    Radius = 50
+    x = int(event.x / scale_x)
+    y = int(event.y / scale_y)
+
+    store_data = floors[current_floor]["stores"]
+
+    closest = None
+    min_d = float("inf")
+
+    for name, (sx, sy) in store_data.items():
+        if name.startswith("P") or name.startswith("Esc"):
+            continue
+
+        d = distance((x, y), (sx, sy))
+
+        if d < min_d and d < Radius:   #Radius
+            min_d = d
+            closest = name
+
+    if closest:
+        if active_input == "source":
+            source_var.set(closest)
+        else:
+            dest_var.set(closest)
+
+
+# UI LAYOUT
 
 main = tk.Frame(root)
 main.pack(fill="both", expand=True)
@@ -390,7 +426,7 @@ main.pack(fill="both", expand=True)
 map_frame = tk.Frame(main)
 map_frame.pack(fill="both", expand=True)
 
-control = tk.Frame(main, height=120, bg="#f5f5f5")
+control = tk.Frame(main, height=120)
 control.pack(fill="x")
 
 image_label = tk.Label(map_frame)
@@ -399,45 +435,37 @@ image_label.pack(fill="both", expand=True)
 floor_label = tk.Label(map_frame, font=("Arial", 22, "bold"), bg="white")
 floor_label.place(x=20, y=20)
 
-# -----------------------------
-# DROPDOWN (ALL FLOORS)
-# -----------------------------
-def filter_store(s):
-    return [k for k in s if not k.startswith("P") and not k.startswith("Esc")]
-
-store_list = filter_store(stores_GF) + filter_store(stores_F1) + filter_store(stores_F2) + filter_store(stores_F3)
-
 source_var = tk.StringVar()
 dest_var = tk.StringVar()
 
-ttk.Combobox(control, textvariable=source_var, values=store_list).grid(row=0, column=1)
-ttk.Combobox(control, textvariable=dest_var, values=store_list).grid(row=0, column=3)
+source_combo = ttk.Combobox(control, textvariable=source_var, values=full_store_list, width=25)
+source_combo.grid(row=0, column=1)
+
+dest_combo = ttk.Combobox(control, textvariable=dest_var, values=full_store_list, width=25)
+dest_combo.grid(row=0, column=3)
+
+source_combo.bind("<Button-1>", lambda e: set_active_input("source"))
+dest_combo.bind("<Button-1>", lambda e: set_active_input("dest"))
 
 tk.Label(control, text="Source").grid(row=0, column=0)
 tk.Label(control, text="Destination").grid(row=0, column=2)
 
-# -----------------------------
-# FLOOR SWITCH BUTTONS
-# -----------------------------
+
+
+# FLOOR SWITCH
+
 def switch_floor(direction):
     global current_floor
-
     idx = floor_keys.index(current_floor)
-
-    if direction == "next":
-        idx = (idx + 1) % len(floor_keys)
-    else:
-        idx = (idx - 1) % len(floor_keys)
-
+    idx = (idx + 1) % len(floor_keys) if direction == "next" else (idx - 1) % len(floor_keys)
     current_floor = floor_keys[idx]
     update_image()
 
 tk.Button(control, text="⬅ Prev", command=lambda: switch_floor("prev")).grid(row=1, column=0)
 tk.Button(control, text="Next ➡", command=lambda: switch_floor("next")).grid(row=1, column=1)
 
-# -----------------------------
+
 # UPDATE IMAGE
-# -----------------------------
 def update_image():
     display = floors[current_floor]["img"].copy()
 
@@ -445,32 +473,32 @@ def update_image():
         "GF": "Ground Floor",
         "F1": "First Floor",
         "F2": "Second Floor",
-        "F3": "Third Floor"
+        "F3": "Third Floor",
     }[current_floor])
 
-    # Draw paths
     if last_paths[current_floor]:
         store = floors[current_floor]["stores"]
         for i in range(len(last_paths[current_floor])-1):
-            cv2.line(display,
-                     store[last_paths[current_floor][i]],
-                     store[last_paths[current_floor][i+1]],
-                     (0,0,255), 4)
+            cv2.line(display, store[last_paths[current_floor][i]],
+                     store[last_paths[current_floor][i+1]], (0,0,255), 4)
 
-    # Draw source/dest
-    if last_source and last_source in floors[current_floor]["stores"]:
+    if last_source in floors[current_floor]["stores"]:
         cv2.circle(display, floors[current_floor]["stores"][last_source], 10, (0,255,0), -1)
 
-    if last_dest and last_dest in floors[current_floor]["stores"]:
+    if last_dest in floors[current_floor]["stores"]:
         cv2.circle(display, floors[current_floor]["stores"][last_dest], 10, (0,0,255), -1)
 
     img_tk = convert(display)
     image_label.config(image=img_tk)
     image_label.image = img_tk
+    image_label.bind("<Button-1>", on_click)
 
-# -----------------------------
-# NAVIGATION (MULTI FLOOR)
-# -----------------------------
+
+def set_active_input(field):
+    global active_input
+    active_input = field
+
+
 def find_and_draw():
     global last_paths, last_source, last_dest
 
@@ -479,79 +507,93 @@ def find_and_draw():
 
     last_source = s
     last_dest = d
-    last_paths = {"GF": None, "F1": None, "F2": None , "F3": None}
 
     sf = get_floor(s)
     df = get_floor(d)
 
+    active_input = "source"
+
+    floor_sequence = []
+    floor_path_label = tk.Label(control, text="", font=("Arial", 14, "bold"), fg="green")
+    floor_path_label.grid(row=3, column=0, columnspan=5)
+
+    # 🔥 CLEAR PREVIOUS STATE
+    last_paths = {"GF": None, "F1": None, "F2": None, "F3": None}
+    floor_path_label.config(text="")  # clear old route
+
     # SAME FLOOR
+
     if sf == df:
         data = floors[sf]
+
         start = nearest_node(data["stores"][s], data["stores"])
         end = nearest_node(data["stores"][d], data["stores"])
-        last_paths[sf] = shortest_path(data["graph"], start, end, data["stores"])
 
+        last_paths[sf] = astar(data["graph"], start, end, data["stores"])
+
+        floor_sequence = [sf]
+
+
+    # MULTI FLOOR
 
     else:
-        # STEP 1 → FROM SOURCE FLOOR
-        if sf == "GF":
-            start = nearest_node(stores_GF[s], stores_GF)
-            graph_start = graph_GF
-            stores_start = stores_GF
+        floor_sequence.append(sf)
 
-        elif sf == "F1":
-            start = nearest_node(stores_F1[s], stores_F1)
-            graph_start = graph_F1
-            stores_start = stores_F1
+        # STEP 1 → go to nearest escalator
+        start = nearest_node(floors[sf]["stores"][s], floors[sf]["stores"])
 
-        elif sf == "F2":
-            start = nearest_node(stores_F2[s], stores_F2)
-            graph_start = graph_F2
-            stores_start = stores_F2
+        esc = min(
+            ["Esc1", "Esc2"],
+            key=lambda e: distance(
+                floors[sf]["stores"][start],
+                floors[sf]["stores"][e]
+            )
+        )
 
-        else:
-            start = nearest_node(stores_F3[s], stores_F3)
-            graph_start = graph_F3
-            stores_start = stores_F3
-
-        # STEP 2 → GO TO ESCALATOR
-
-        esc = min(["Esc1", "Esc2"],
-                  key=lambda e: distance(stores_start[start], stores_start[e]))
-        last_paths[sf] = shortest_path(graph_start, start, esc, stores_start)
-
-        # STEP 3 → MOVE FLOOR BY FLOOR
+        last_paths[sf] = astar(floors[sf]["graph"],start,esc,floors[sf]["stores"])
 
         current = sf
         current_esc = esc
-        while current != df:
 
+        # STEP 2 → climb floors
+        while current != df:
             next_floor, next_esc = vertical_links[(current, current_esc)]
 
-            next_data = floors[next_floor]
+            floor_sequence.append(next_floor)
 
-            # If final floor
+            data = floors[next_floor]
 
+            # FINAL FLOOR
             if next_floor == df:
-                end = nearest_node(next_data["stores"][d], next_data["stores"])
-                last_paths[next_floor] = shortest_path(next_data["graph"],next_esc,end,next_data["stores"])
+                end = nearest_node(data["stores"][d], data["stores"])
+
+                last_paths[next_floor] = astar(data["graph"], next_esc, end,data["stores"])
 
             else:
+                # intermediate floor → move to escalator
+                next_esc_target = min(
+                    ["Esc1", "Esc2"],
+                    key=lambda e: distance(
+                        data["stores"][next_esc],
+                        data["stores"][e]
+                    )
+                )
 
-                # Intermediate floor → go to escalator again
+                last_paths[next_floor] = astar( data["graph"],next_esc,next_esc_target, data["stores"] )
 
-                next_esc_target = next_esc
-                last_paths[next_floor] = shortest_path(next_data["graph"],next_esc,next_esc_target,next_data["stores"])
+                current_esc = next_esc_target
+
             current = next_floor
 
-            current_esc = next_esc
+
+    floor_path_text = " → ".join(floor_sequence)
+    floor_path_label.config(text=f"Route: {floor_path_text}")
 
     update_image()
 
 tk.Button(control, text="Show Path", command=find_and_draw).grid(row=0, column=4)
 
-# -----------------------------
 # START
-# -----------------------------
+
 update_image()
 root.mainloop()
