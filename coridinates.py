@@ -1,4 +1,6 @@
 from data.Imp import *
+from store_detail.store_details import *
+
 # -----------------------------
 # GLOBAL STATE
 # -----------------------------
@@ -39,20 +41,6 @@ vertical_links = {
 }
 
 
-
-def filter_combobox(event, var, combo):
-    typed = var.get().lower()
-
-    if typed == "":
-        data = full_store_list
-    else:
-        data = [item for item in full_store_list if typed in item.lower()]
-
-    combo['values'] = data
-
-    # show dropdown automatically
-    if data:
-        combo.event_generate('<Down>')
 
 def get_floor(name):
     for f, data in floors.items():
@@ -328,6 +316,9 @@ tk.Label(
 right_frame = tk.Frame(header, bg="#f5f5f5")
 right_frame.pack(side="right", padx=20)
 
+
+
+
 time_label = tk.Label(right_frame, font=("Arial", 14, "bold"), bg="#f5f5f5")
 time_label.pack(side="left", padx=10)
 
@@ -346,6 +337,17 @@ tk.Button(
     width=4
 ).pack(side="left", padx=10)
 
+
+tk.Button(
+    right_frame,
+    text="Store Details",
+    font=("Arial", 11, "bold"),
+    bg="#4a7dfc",
+    fg="white",
+    relief="flat",
+    padx=10,
+    command=lambda: open_store_details(root, full_store_list)
+).pack(side="left", padx=10)
 
 def update_time():
     now = datetime.datetime.now()
@@ -464,8 +466,8 @@ tk.Button(
 ).pack(pady=10)
 
 # KEEP bindings
-source_combo.bind("<KeyRelease>", lambda e: filter_combobox(e, source_var, source_combo))
-dest_combo.bind("<KeyRelease>", lambda e: filter_combobox(e, dest_var, dest_combo))
+source_combo.bind("<Button-1>", lambda e: set_active_input("source"))
+dest_combo.bind("<Button-1>", lambda e: set_active_input("dest"))
 
 # -----------------------------
 # FLOATING ROUTE CARD (HIDDEN INITIALLY)

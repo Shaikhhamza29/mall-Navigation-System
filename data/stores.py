@@ -98,7 +98,7 @@ stores_F2={
     "House of Felt":( 968 ,125),
     "AND":( 1097 ,135),
     "Kitchen Garden":(1363 ,158),
-    "Peora":( 1495 ,149),
+    "peora":( 1495 ,149),
     "Tasva":( 1563 ,128),
     "Jaypore":(1704 ,168),
     "Meena Bazaar":( 1703 ,282),
