@@ -30,8 +30,6 @@ def open_store_details(root, full_store_list):
             suggestion_box.place(x=0, y=45, width=search_outer.winfo_width())
         else:
             suggestion_box.place_forget()
-
-
     # -----------------------------
     # WINDOW
     # -----------------------------
@@ -47,25 +45,32 @@ def open_store_details(root, full_store_list):
     header = tk.Frame(win, bg="#4a7dfc", height=70)
     header.pack(fill="x")
 
+    # configure columns
+    header.grid_columnconfigure(0, weight=1)
+    header.grid_columnconfigure(1, weight=1)
+    header.grid_columnconfigure(2, weight=1)
+
+    # LEFT → Back button
+    tk.Button(
+        header,
+        text="← Back",
+        font=("Segoe UI", 12, "bold"),
+        bg="white",
+        relief="flat",
+        command=win.destroy
+    ).grid(row=0, column=0, sticky="w", padx=20)
+
+    # CENTER → Title
     tk.Label(
         header,
         text="Store Details",
         font=("Segoe UI", 20, "bold"),
         bg="#4a7dfc",
         fg="white"
-    ).pack(side="left", padx=30)
+    ).grid(row=0, column=1)
 
-    tk.Button(
-        header,
-        text="← Back",
-        font=("Segoe UI", 12, "bold"),
-        bg="white",
-        fg="#333",
-        relief="flat",
-        padx=15,
-        pady=5,
-        command=win.destroy
-    ).pack(side="right", padx=30)
+    # RIGHT → Empty space (keeps title centered)
+    tk.Label(header, bg="#4a7dfc").grid(row=0, column=2)
 
     # -----------------------------
     # MAIN CONTAINER (CENTERED)

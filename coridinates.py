@@ -50,6 +50,7 @@ def get_floor(name):
 def filter_store(s):
     return [k for k in s if not k.startswith("P") and not k.startswith("Esc")]
 
+
 # STORE LIST (FIXED ORDER)
 store_list = filter_store(stores_GF) + filter_store(stores_F1) + filter_store(stores_F2) + filter_store(stores_F3)
 full_store_list = store_list.copy()
@@ -178,12 +179,10 @@ def find_and_draw():
     active_input = "source"
 
     floor_sequence = []
-    floor_path_label = tk.Label(control, text="", font=("Arial", 14, "bold"), fg="green")
-    floor_path_label.grid(row=3, column=0, columnspan=5)
 
     # 🔥 CLEAR PREVIOUS STATE
     last_paths = {"GF": None, "F1": None, "F2": None, "F3": None}
-    floor_path_label.config(text="")  # clear old route
+    # floor_path_label.config(text="")  # clear old route
 
     # SAME FLOOR
 
@@ -250,9 +249,6 @@ def find_and_draw():
             current = next_floor
 
 
-    floor_path_text = " → ".join(floor_sequence)
-    floor_path_label.config(text=f"Route: {floor_path_text}")
-
     # -----------------------------
     # UPDATE FLOATING CARD
     # -----------------------------
@@ -281,16 +277,23 @@ def find_and_draw():
     update_image()
 # UI LAYOUT
 
-# HEADER FIRST
-header = tk.Frame(root, bg="#f5f5f5", height=60)
-header.pack(side="top", fill="x")
-header.pack_propagate(False)
 
-# THEN MAIN
-main = tk.Frame(root)
-main.pack(fill="both", expand=True)
 
-# LEFT SIDE (Back + Title)
+
+
+
+
+
+
+
+
+# -----------------------------
+# HEADER
+# -----------------------------
+header = tk.Frame(root, bg="#f5f5f5")
+header.pack(fill="x")
+
+# LEFT SIDE
 left_frame = tk.Frame(header, bg="#f5f5f5")
 left_frame.pack(side="left", padx=20)
 
@@ -312,12 +315,16 @@ tk.Label(
     bg="#f5f5f5"
 ).pack(side="left", padx=10)
 
+floor_label = tk.Label(
+    header,
+    font=("Arial", 18, "bold"),
+    bg="#f5f5f5"
+)
+floor_label.pack(side="left", padx=20)
+
 # RIGHT SIDE
 right_frame = tk.Frame(header, bg="#f5f5f5")
 right_frame.pack(side="right", padx=20)
-
-
-
 
 time_label = tk.Label(right_frame, font=("Arial", 14, "bold"), bg="#f5f5f5")
 time_label.pack(side="left", padx=10)
@@ -336,7 +343,6 @@ tk.Button(
     relief="flat",
     width=4
 ).pack(side="left", padx=10)
-
 
 tk.Button(
     right_frame,
@@ -359,72 +365,20 @@ update_time()
 
 
 
-image_label = tk.Label(main)
-image_label.pack(fill="both", expand=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-floor_label = tk.Label(header, font=("Arial", 18, "bold"), bg="#f5f5f5")
-floor_label.pack(side="left", padx=20)
-
-source_var = tk.StringVar()
-dest_var = tk.StringVar()
-
 # -----------------------------
-# CONTROL BOX (LEFT BELOW FLOORS)
+# MAIN AREA
 # -----------------------------
-
-control_box = tk.Frame(main, bg="#e6e6e6", bd=1, relief="solid")
-control_box.place(x=25, y=260)   # 👈 adjusted to sit below floor panel
-
-inner = tk.Frame(control_box, bg="#f2f2f2", padx=20, pady=15)
-inner.pack(padx=2, pady=2)
-
-tk.Label(inner, text="Source", font=("Arial", 12, "bold"), bg="#f2f2f2").pack(anchor="w")
-source_combo = ttk.Combobox(inner, textvariable=source_var, values=full_store_list, width=25)
-source_combo.pack(pady=5)
-
-tk.Label(inner, text="Destination", font=("Arial", 12, "bold"), bg="#f2f2f2").pack(anchor="w")
-dest_combo = ttk.Combobox(inner, textvariable=dest_var, values=full_store_list, width=25)
-dest_combo.pack(pady=5)
-
-tk.Button(
-    inner,
-    text="📍 Show Route",
-    bg="#1f8f3a",
-    fg="white",
-    font=("Arial", 11, "bold"),
-    relief="flat",
-    padx=10,
-    pady=5,
-    command=find_and_draw
-).pack(pady=10)
-
-source_combo.bind("<KeyRelease>", lambda e: filter_combobox(e, source_var, source_combo))
-dest_combo.bind("<KeyRelease>", lambda e: filter_combobox(e, dest_var, dest_combo))
+main = tk.Frame(root)
+main.pack(fill="both", expand=True)
 
 map_frame = tk.Frame(main)
 map_frame.pack(fill="both", expand=True)
 
-control = tk.Frame(main, height=120)
-control.pack_forget()
-
 image_label = tk.Label(map_frame)
 image_label.pack(fill="both", expand=True)
 
-floor_label = tk.Label(header, font=("Arial", 18, "bold"), bg="#f5f5f5")
-floor_label.pack(side="left", padx=20)
+
+
 
 source_var = tk.StringVar()
 dest_var = tk.StringVar()
@@ -432,12 +386,10 @@ dest_var = tk.StringVar()
 # -----------------------------
 # MODERN CONTROL PANEL (CENTER BOX)
 # -----------------------------
-control.place_forget()  # remove old layout
-
 control_box = tk.Frame(map_frame, bg="#e6e6e6", bd=1, relief="solid")
 
 # 👇 POSITION BELOW FLOOR SELECTOR
-control_box.place(x=25, y=450)   # adjust Y if needed
+control_box.place(x=25, y=20)   # adjust Y if needed
 
 inner = tk.Frame(control_box, bg="#f2f2f2", padx=20, pady=15)
 inner.pack(padx=2, pady=2)
@@ -525,11 +477,12 @@ def switch_floor(direction):
 # MODERN VERTICAL FLOOR PANEL
 # -----------------------------
 floor_panel = tk.Frame(map_frame, bg="#e5e5e5")
-floor_panel.place(x=20, y=100)
+floor_panel.place(x=20, y=240)
 
 container = tk.Frame(floor_panel, bg="#f2f2f2", bd=1, relief="solid")
-container.pack(padx=5, pady=5)
-
+container.pack(fill="both", expand=True, pady=0)
+root.update_idletasks()
+print(header.winfo_height(), container.winfo_y())
 floor_order = ["F3", "F2", "F1", "GF"]
 
 def set_floor(f):

@@ -23,6 +23,7 @@ stores_GF = {
     "Forever New": (1083, 171),
     "The Body Shop": (1134, 91),
     "Nail Spa": (1125, 413),
+    "Washroom & Drinking Water GF":( 1217 ,646),
 
     "Esc1": (317, 440),
     "Esc2": (1141, 277),
@@ -65,6 +66,7 @@ stores_F1 = {
     "Tanishq":(397 ,715),
     "Croma":(209 ,717),
     "theobroma":(187 ,442),
+    "Washroom & Drinking Water F1":( 1192 ,659),
 
     "Esc1": (317, 440),
     "Esc2": (1141, 277),
@@ -115,6 +117,8 @@ stores_F2={
     "Nalli":(400 ,756),
     "nature Basket":(264 ,723),
     "Chaayos":( 259 ,419),
+    "Washroom & Drinking Water F2":( 1228 ,666),
+
 # PATH (COPY FROM F1 OR ADJUST)
     "P1": (198,342),
     "P2": (411,333),
@@ -159,6 +163,7 @@ stores_F3={
     "Sandwizza":(238 ,752),
     "Nom Nom Express":( 232 ,683),
     "WOW momos":( 228 ,606),
+    "Washroom & Drinking Water F3":( 967 ,781),
 
     "P1":( 355 ,359),
     "P2":( 541 ,335),
